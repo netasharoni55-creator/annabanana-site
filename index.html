@@ -190,11 +190,11 @@
     display:grid; grid-template-columns:1.3fr 1fr; gap:0; max-width:1280px; margin:0 auto;
   }
   .about-page-img{ height:100%; min-height:640px; overflow:hidden; background:var(--bg); }
-.about-page-img img{ width:100%; height:auto; display:block; }
+.about-page-img img{ width:100%; max-width:280px; height:auto; display:block; }
   .about-page{ max-width:900px; margin:0; padding:120px 80px 100px; }
   .about-page .eyebrow{ font-family:'Josefin Sans',sans-serif; font-size:13px; font-weight:600; letter-spacing:3px; color:var(--navy); margin-bottom:16px; }
   .about-page h1{ font-family:'Josefin Sans',sans-serif; font-size:48px; font-weight:300; letter-spacing:2px; margin-bottom:32px; }
-  .about-page p{ font-family:'Inter',sans-serif; font-weight:400; font-size:18px; line-height:1.7; margin-bottom:16px; max-width:65ch;}
+  .about-page p{ font-family:'Inter',sans-serif; font-weight:400; font-size:15px; line-height:1.7; margin-bottom:16px; max-width:65ch;}
   .about-page p.lead{ font-weight:700; font-size:15px; line-height:1.6; }
 
   /* ---------- CONTACT PAGE ---------- */
@@ -253,7 +253,7 @@
           </div>
         </div>
         <div class="about-page-img" style="min-height:420px;">
-          <img src="images/site-about.jpg">
+        <img id="about-preview-img" src="images/site-about.jpg">
         </div>
       </div>
     </section>
@@ -319,7 +319,7 @@
   <div class="view" id="view-about">
     <div class="about-page-grid">
       <div class="about-page-img">
-        <img src="images/site-about.jpg">
+       <img id="about-page-img" src="images/site-about.jpg">
       </div>
       <div class="about-page">
         <div class="eyebrow">THE ARTIST</div>
