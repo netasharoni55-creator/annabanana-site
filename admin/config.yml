@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/annabanana-site
+  repo: netasharoni55-creator/annabanana-site
   branch: main
 
 media_folder: "images"
