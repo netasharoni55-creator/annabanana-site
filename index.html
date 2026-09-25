@@ -182,6 +182,11 @@
   .work-single .work-label{ margin-top:16px; }
   .work-single .work-label .title{ font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; }
   .work-single .work-label .dims{ font-family:'Inter',sans-serif; font-size:12px; font-weight:400; color:var(--navy-50); margin-top:4px; }
+  .work-pair-row{ display:flex; gap:20px; }
+  .work-pair-row .half{ flex:1; margin-top:0; }
+  .work-pair-labels{ margin-top:16px; }
+  .sold-together-note{ text-align:center; font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--navy-50); margin-top:20px; }
+  @media (max-width:680px){ .work-pair-row{ flex-direction:column; gap:56px; } }
 
   /* ---------- ARTWORK DETAIL (in-place expand+zoom, no lightbox) ---------- */
   .card.expanded{ grid-column:1 / -1; z-index:5; }
@@ -485,12 +490,52 @@ function workRowHTML(a){
   </div>`;
 }
 
+function pairHTML(a, b){
+  const portraitA = isPortrait(a) ? ' portrait' : '';
+  const portraitB = isPortrait(b) ? ' portrait' : '';
+  return `<div class="work-single work-pair">
+    <div class="work-pair-row">
+      <div class="work-image half${portraitA}" onclick="toggleExpandZoom(this)">${soldTagHTML(a)}<img src="${a.image}"></div>
+      <div class="work-image half${portraitB}" onclick="toggleExpandZoom(this)">${soldTagHTML(b)}<img src="${b.image}"></div>
+    </div>
+    <div class="work-pair-row work-pair-labels">
+      <div class="work-label half">
+        <div class="title">${a.mono}</div>
+        ${nonStandardDimsHTML(a, 'dims')}
+        <div class="inquire-link" onclick="inquire('${a.mono}')">Purchase inquiry</div>
+      </div>
+      <div class="work-label half">
+        <div class="title">${b.mono}</div>
+        ${nonStandardDimsHTML(b, 'dims')}
+        <div class="inquire-link" onclick="inquire('${b.mono}')">Purchase inquiry</div>
+      </div>
+    </div>
+    <div class="sold-together-note">&mdash; Sold together &mdash;</div>
+  </div>`;
+}
+
 function collectionBlockHTML(collection){
+  const rendered = new Set();
+  const parts = [];
+  collection.works.forEach(a => {
+    if(rendered.has(a.mono)) return;
+    if(a.set_with && a.set_with.length){
+      const partner = collection.works.find(w => w.mono === a.set_with[0]);
+      if(partner){
+        parts.push(pairHTML(a, partner));
+        rendered.add(a.mono);
+        rendered.add(partner.mono);
+        return;
+      }
+    }
+    parts.push(workRowHTML(a));
+    rendered.add(a.mono);
+  });
   return `<div class="collection-block">
     <div class="section-head">
       <div class="meta">CATALOGUE ${collection.code} / MIXED-MEDIA &middot; ${collection.medium}</div>
     </div>
-    ${collection.works.map(workRowHTML).join('')}
+    ${parts.join('')}
   </div>`;
 }
 
@@ -509,8 +554,8 @@ async function loadWorks(){
   COLLECTIONS.forEach(c => c.works.sort((x,y) => x.mono.localeCompare(y.mono)));
 
   const latest = COLLECTIONS[0];
-  if(latest){
-    const heroWork = latest.works[0];
+  const heroWork = ARTWORKS.find(w => w.mono === 'MoNo.09.25.2026.01-01') || (latest && latest.works[0]);
+  if(heroWork){
     document.getElementById('hero-img').src = heroWork.image;
     document.getElementById('hero-label').textContent = heroWork.mono;
   }
