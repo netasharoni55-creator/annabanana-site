@@ -169,11 +169,11 @@
   .gallery-head{ padding:100px 80px 40px; }
   .gallery-head h1{ font-family:'Josefin Sans',sans-serif; font-size:18px; font-weight:400; letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; }
   .gallery-head-meta{ font-family:'Inter',sans-serif; font-size:13px; font-weight:400; color:var(--navy-50); }
-  .gallery-collections{ padding:0 80px 40px; max-width:1280px; margin:0 auto; }
+  .gallery-collections{ padding:0 80px 40px; max-width:900px; margin:0 auto; }
   .collection-block{ margin-bottom:120px; }
   .collection-block:last-child{ margin-bottom:80px; }
   .collection-block .section-head .meta{ font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; }
-  .work-single{ margin-bottom:80px; }
+  .work-single{ margin-bottom:160px; }
   .work-single:last-child{ margin-bottom:0; }
   .work-single .work-image{ position:relative; width:100%; aspect-ratio:1.5; overflow:hidden; background:var(--bg); cursor:pointer; }
   .work-single .work-image.portrait{ aspect-ratio:0.7; max-width:640px; margin:0 auto; }
@@ -490,7 +490,7 @@ function workRowHTML(a){
   </div>`;
 }
 
-function pairHTML(a, b){
+function pairHTML(a, b, showSoldTogether){
   const portraitA = isPortrait(a) ? ' portrait' : '';
   const portraitB = isPortrait(b) ? ' portrait' : '';
   return `<div class="work-single work-pair">
@@ -510,32 +510,56 @@ function pairHTML(a, b){
         <div class="inquire-link" onclick="inquire('${b.mono}')">Purchase inquiry</div>
       </div>
     </div>
-    <div class="sold-together-note">&mdash; Sold together &mdash;</div>
+    ${showSoldTogether ? '<div class="sold-together-note">&mdash; Sold together &mdash;</div>' : ''}
   </div>`;
 }
 
 function collectionBlockHTML(collection){
   const rendered = new Set();
   const parts = [];
-  collection.works.forEach(a => {
+  const works = collection.works;
+
+  // Pass 1: sold-together sets always pair with their real partner, and featured works stand alone.
+  works.forEach(a => {
     if(rendered.has(a.mono)) return;
     if(a.set_with && a.set_with.length){
-      const partner = collection.works.find(w => w.mono === a.set_with[0]);
+      const partner = works.find(w => w.mono === a.set_with[0]);
       if(partner){
-        parts.push(pairHTML(a, partner));
+        parts.push({sort: works.indexOf(a), html: pairHTML(a, partner, true)});
         rendered.add(a.mono);
         rendered.add(partner.mono);
         return;
       }
     }
-    parts.push(workRowHTML(a));
-    rendered.add(a.mono);
+    if(a.featured){
+      parts.push({sort: works.indexOf(a), html: workRowHTML(a)});
+      rendered.add(a.mono);
+    }
   });
+
+  // Pass 2: everything else (not a set, not featured) fills a two-per-row grid, in order.
+  const remaining = works.filter(w => !rendered.has(w.mono));
+  for(let i = 0; i < remaining.length; i += 2){
+    const a = remaining[i];
+    const b = remaining[i+1];
+    const idx = works.indexOf(a);
+    if(b){
+      parts.push({sort: idx, html: pairHTML(a, b, false)});
+      rendered.add(a.mono);
+      rendered.add(b.mono);
+    } else {
+      parts.push({sort: idx, html: workRowHTML(a)});
+      rendered.add(a.mono);
+    }
+  }
+
+  parts.sort((x,y) => x.sort - y.sort);
+  const partsHTML = parts.map(p => p.html);
   return `<div class="collection-block">
     <div class="section-head">
       <div class="meta">CATALOGUE ${collection.code} / MIXED-MEDIA &middot; ${collection.medium}</div>
     </div>
-    ${parts.join('')}
+    ${partsHTML.join('')}
   </div>`;
 }
 
