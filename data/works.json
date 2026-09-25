@@ -85,15 +85,6 @@
       "featured": true
     },
     {
-      "mono": "MoNo.08.31.2026-11",
-      "collection_code": "AB.2026.08.31",
-      "date": "2026-08-31",
-      "dimensions": "100 × 70 cm",
-      "medium": "Acrylic, monoprint, photograph",
-      "image": "/images/mono-08-31-2026-11.jpg",
-      "sold": false
-    },
-    {
       "mono": "MoNo.08.31.2026-12",
       "collection_code": "AB.2026.08.31",
       "date": "2026-08-31",
@@ -164,15 +155,6 @@
       "dimensions": "100 × 70 cm",
       "medium": "Acrylic, monoprint, photograph",
       "image": "/images/mono-09-01-2026-08.jpg",
-      "sold": false
-    },
-    {
-      "mono": "MoNo.09.04.2026-01",
-      "collection_code": "AB.2026.09.04",
-      "date": "2026-09-04",
-      "dimensions": "100 × 70 cm",
-      "medium": "Acrylic, monoprint, photograph",
-      "image": "/images/mono-09-04-2026-01.jpg",
       "sold": false
     },
     {
@@ -576,6 +558,26 @@
       "image": "/images/mono-09-25-2026-01-10.jpg",
       "sold": false,
       "featured": true
+    },
+    {
+      "mono": "MoNo.09.04.2026-01",
+      "collection_code": "AB.2026.09.04",
+      "date": "2026-09-04",
+      "dimensions": "100 × 70 cm",
+      "medium": "Acrylic, monoprint, photograph",
+      "image": "/images/mono-09-04-2026-01.jpg",
+      "sold": false,
+      "solo": true
+    },
+    {
+      "mono": "MoNo.08.31.2026-11",
+      "collection_code": "AB.2026.08.31",
+      "date": "2026-08-31",
+      "dimensions": "100 × 70 cm",
+      "medium": "Acrylic, monoprint, photograph",
+      "image": "/images/mono-08-31-2026-11.jpg",
+      "sold": false,
+      "solo": true
     }
   ]
 }

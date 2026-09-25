@@ -169,7 +169,8 @@
   .gallery-head{ padding:100px 80px 40px; }
   .gallery-head h1{ font-family:'Josefin Sans',sans-serif; font-size:18px; font-weight:400; letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; }
   .gallery-head-meta{ font-family:'Inter',sans-serif; font-size:13px; font-weight:400; color:var(--navy-50); }
-  .gallery-collections{ padding:0 80px 40px; max-width:900px; margin:0 auto; }
+  .gallery-collections{ padding:0 80px 40px; max-width:1200px; margin:0 auto; }
+  .work-single:not(.work-pair){ max-width:900px; margin-left:auto; margin-right:auto; }
   .collection-block{ margin-bottom:120px; }
   .collection-block:last-child{ margin-bottom:80px; }
   .collection-block .section-head .meta{ font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; }
@@ -182,7 +183,7 @@
   .work-single .work-label{ margin-top:16px; }
   .work-single .work-label .title{ font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; }
   .work-single .work-label .dims{ font-family:'Inter',sans-serif; font-size:12px; font-weight:400; color:var(--navy-50); margin-top:4px; }
-  .work-pair-row{ display:flex; gap:20px; }
+  .work-pair-row{ display:flex; gap:8px; }
   .work-pair-row .half{ flex:1; margin-top:0; }
   .work-pair-labels{ margin-top:16px; }
   .sold-together-note{ text-align:center; font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--navy-50); margin-top:20px; }
@@ -531,7 +532,7 @@ function collectionBlockHTML(collection){
         return;
       }
     }
-    if(a.featured){
+    if(a.featured || a.solo){
       parts.push({sort: works.indexOf(a), html: workRowHTML(a)});
       rendered.add(a.mono);
     }
