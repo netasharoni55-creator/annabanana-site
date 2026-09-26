@@ -40,7 +40,7 @@ collections:
               - label: "Medium"
                 name: "medium"
                 widget: "string"
-                default: "Acrylic, monoprint, photograph"
+                default: "Acrylic, monotype, photograph"
               - label: "Image"
                 name: "image"
                 widget: "image"
