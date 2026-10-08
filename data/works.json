@@ -32,7 +32,7 @@
       "mono": "MoNo.08.28.2026-04",
       "collection_code": "AB.2026.08.28",
       "date": "2026-08-28",
-      "dimensions": "100 × 70 cm",
+      "dimensions": "70 × 100 cm",
       "medium": "Acrylic, monotype, photograph",
       "image": "/images/mono-08-28-2026-04.jpg",
       "sold": false
@@ -44,6 +44,16 @@
       "dimensions": "100 × 70 cm",
       "medium": "Acrylic, monotype, photograph",
       "image": "/images/mono-08-28-2026-06.jpg",
+      "sold": false,
+      "featured": true
+    },
+    {
+      "mono": "MoNo.08.31.2026-02",
+      "collection_code": "AB.2026.08.31",
+      "date": "2026-08-31",
+      "dimensions": "100 × 70 cm",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-08-31-2026-02.jpg",
       "sold": false,
       "featured": true
     },
@@ -81,16 +91,6 @@
       "dimensions": "100 × 70 cm",
       "medium": "Acrylic, monotype, photograph",
       "image": "/images/mono-08-31-2026-09.jpg",
-      "sold": false,
-      "featured": true
-    },
-    {
-      "mono": "MoNo.08.31.2026-12",
-      "collection_code": "AB.2026.08.31",
-      "date": "2026-08-31",
-      "dimensions": "100 × 70 cm",
-      "medium": "Acrylic, monotype, photograph",
-      "image": "/images/mono-08-31-2026-12.jpg",
       "sold": false
     },
     {
@@ -390,24 +390,6 @@
       "sold": false
     },
     {
-      "mono": "MoNo.09.25.2026.02-11",
-      "collection_code": "AB.2026.09.25.02",
-      "date": "2026-09-25",
-      "dimensions": "70 × 100 cm",
-      "medium": "Acrylic, monotype, photograph",
-      "image": "/images/mono-09-25-2026-02-11.jpg",
-      "sold": false
-    },
-    {
-      "mono": "MoNo.09.25.2026.02-12",
-      "collection_code": "AB.2026.09.25.02",
-      "date": "2026-09-25",
-      "dimensions": "70 × 100 cm",
-      "medium": "Acrylic, monotype, photograph",
-      "image": "/images/mono-09-25-2026-02-12.jpg",
-      "sold": false
-    },
-    {
       "mono": "MoNo.09.25.2026.02-13",
       "collection_code": "AB.2026.09.25.02",
       "date": "2026-09-25",
@@ -566,16 +548,6 @@
       "dimensions": "100 × 70 cm",
       "medium": "Acrylic, monotype, photograph",
       "image": "/images/mono-09-04-2026-01.jpg",
-      "sold": false,
-      "solo": true
-    },
-    {
-      "mono": "MoNo.08.31.2026-11",
-      "collection_code": "AB.2026.08.31",
-      "date": "2026-08-31",
-      "dimensions": "100 × 70 cm",
-      "medium": "Acrylic, monotype, photograph",
-      "image": "/images/mono-08-31-2026-11.jpg",
       "sold": false,
       "solo": true
     }

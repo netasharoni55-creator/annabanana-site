@@ -55,18 +55,19 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative; width:100%; aspect-ratio:1.5; overflow:hidden;
-    background:var(--bg);
+    position:relative; width:100%;
+    display:flex; flex-direction:column; align-items:center;
+    padding:24px 0 8px; background:var(--bg);
   }
-  .hero img{ width:100%; height:100%; object-fit:contain; }
+  .hero img{ width:auto; max-width:100%; height:auto; max-height:calc(100vh - 230px); object-fit:contain; }
   .hero-label{
-    position:absolute; left:40px; bottom:40px;
-    background:rgba(255,255,255,0.9); color:var(--navy); padding:16px 22px;
+    position:static; margin-top:20px;
+    background:var(--bg); color:var(--navy); padding:12px 20px;
     border:1px solid var(--navy);
     font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px;
   }
   .hero-cta{
-    position:absolute; left:50%; bottom:28px; transform:translateX(-50%);
+    position:static; margin-top:14px;
     background:var(--bg); border:1px solid var(--navy-15); border-radius:30px;
     padding:12px 24px; font-family:'Josefin Sans',sans-serif; font-size:11px; font-weight:600;
     letter-spacing:2px; text-transform:uppercase;
@@ -88,13 +89,11 @@
   }
   .card .thumb{ position:relative; width:100%; aspect-ratio:1.5; overflow:hidden; background:var(--bg); cursor:pointer; }
   .card .thumb.portrait{ aspect-ratio:2/3; }
-  .sold-tag{
-    position:absolute; top:12px; right:12px; z-index:2;
-    background:rgba(255,255,255,0.92); color:var(--navy);
-    border:1px solid var(--navy);
-    font-family:'Josefin Sans',sans-serif; font-size:10px; font-weight:600;
-    letter-spacing:2px; text-transform:uppercase;
-    padding:6px 10px;
+  .is-sold img{ opacity:.45; }
+  .sold-label{
+    display:inline-block; margin-top:10px;
+    font-family:'Josefin Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--navy-50);
   }
   .card .thumb img{ width:100%; height:100%; object-fit:contain; transition:transform .5s ease; }
   .card:hover .thumb img{ transform:scale(1.04); }
@@ -127,7 +126,7 @@
   /* portrait work in the Loupe: 2:3 frame, whole work fits the screen height on desktop */
   .loupe-demo.portrait{ aspect-ratio:2/3; max-width:min(100%, calc((100vh - 140px) * 2 / 3)); margin:0 auto; }
   .loupe-demo.zoom-active{ box-shadow:inset 0 0 0 2px var(--navy); }
-  .loupe-demo img{ width:100%; height:100%; object-fit:contain; display:block; will-change:transform; }
+  .loupe-demo img{ width:100%; height:100%; max-width:none; object-fit:contain; display:block; }
   .loupe-mag-label{
     position:absolute; left:16px; bottom:16px; background:rgba(255,255,255,.85);
     color:var(--navy); font-family:'Josefin Sans',sans-serif; font-size:11px; font-weight:400;
@@ -203,7 +202,7 @@
   }
   .lightbox.open{ display:flex; }
   .lightbox-stage{ position:relative; overflow:hidden; }
-  .lightbox-stage img{ width:100%; height:100%; display:block; transform-origin:0 0; will-change:transform; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
+  .lightbox-stage img{ width:100%; height:100%; max-width:none; display:block; transform-origin:0 0; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
   .lightbox-hint{ position:absolute; left:0; right:0; bottom:28px; text-align:center; color:rgba(255,255,255,.55); font-family:'Josefin Sans',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; pointer-events:none; }
   .lightbox-close{
     position:absolute; top:20px; right:20px; z-index:2001;
@@ -211,7 +210,8 @@
     background:rgba(255,255,255,0.12); color:#fff; font-size:26px; line-height:1;
     display:flex; align-items:center; justify-content:center; cursor:pointer;
   }
-  .thumb img, .work-image img{ transition:transform .15s ease; will-change:transform; }
+  .thumb img, .work-image img{ transition:transform .15s ease; }
+  .zoom-active > img{ position:absolute; top:0; left:0; max-width:none; transition:none; }
   .inquire-link{
     display:inline-block; margin-top:10px;
     font-family:'Josefin Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:1.5px;
@@ -248,7 +248,6 @@
     .gallery-head, .gallery-collections, .about-page, .contact-page{padding-left:24px; padding-right:24px;}
     .grid{grid-template-columns:1fr;}
     .loupe-inner, .about-page-grid{grid-template-columns:1fr;}
-    .hero-label{ top:24px; bottom:auto; left:24px; }
   }
 
   /* ---------- MOBILE (phones) ---------- */
@@ -279,10 +278,10 @@
     .contact-page{ padding:56px 20px; }
 
     /* hero */
-    .hero{ aspect-ratio:auto; overflow:visible; display:flex; flex-direction:column; align-items:center; padding-bottom:8px; }
-    .hero img{ height:auto; aspect-ratio:1.5; }
-    .hero-label{ position:static; padding:10px 14px; font-size:12px; margin:20px 0 0; }
-    .hero-cta{ position:static; transform:none; font-size:10px; padding:10px 18px; margin-top:14px; text-align:center; }
+    .hero{ padding-top:0; }
+    .hero img{ width:100%; height:auto; max-height:none; aspect-ratio:1.5; }
+    .hero-label{ padding:10px 14px; font-size:12px; margin:20px 0 0; }
+    .hero-cta{ font-size:10px; padding:10px 18px; margin-top:14px; text-align:center; }
 
     /* typography scales down */
     .section-head h2{ font-size:15px; letter-spacing:2.5px; }
@@ -337,7 +336,7 @@
       <div class="about-preview">
         <div class="eyebrow">THE ARTIST</div>
         <h2>ANNA BANANA</h2>
-        <p>Working at the intersection of acrylic painting, print transfer, and macro photography, my practice examines texture as landscape.</p>
+        <p>Creating at the intersection of acrylic, print transfer, and photography, my practice examines texture as landscape.</p>
         <div class="cta-row" style="margin-top:24px;">
           <a class="btn" onclick="navigate('about')">Read More</a>
         </div>
@@ -354,8 +353,7 @@
         </div>
         <div class="loupe-text">
           <div class="eyebrow">THE LOUPE</div>
-          <p><span class="loupe-lead">Click the work and move your cursor across it to reveal its microscopic detail.</span> Each piece embodies random organic textures and forms. When acrylic is pressed between two surfaces and then pulled apart, the paint resists, cracks, and stretches unevenly — leaving behind the capillaries, veins, and roots you see here. The passage between mediums — acrylic, monotype, and photograph — illustrates, emphasizes, and reveals details created out of nothing.</p>
-          <div class="footnote">MICRO-TEXTURE EXPLORER ENABLED ACROSS ALL DIGITAL ARCHIVES.</div>
+          <p><span class="loupe-lead">Click the work and move your cursor across it to reveal its detail.</span> Each piece embodies random organic textures and forms. Acrylic has body. It is thick and plastic, and it holds its shape as the surfaces part. In the light of the photograph it becomes alive. The passage between mediums — acrylic, monotype, and photograph — illustrates, emphasizes, and reveals details.</p>
         </div>
       </div>
     </div>
@@ -388,12 +386,12 @@
       <div class="about-page">
         <div class="eyebrow">THE ARTIST</div>
         <h1>ANNA BANANA</h1>
-        <p>Working at the intersection of acrylic painting, print transfer, and macro photography, my practice examines texture as landscape.</p>
-        <p>I've been painting with acrylic for years — long before this project began. Photography came later, almost as a hobby, until I discovered what happens when you photograph a painting up close: the camera reveals an effect the eye alone doesn't catch, a second life the paint takes on once it's seen through a lens.</p>
+        <p>Creating at the intersection of acrylic, print transfer, and photography, my practice examines texture as landscape.</p>
+        <p>I've been working with acrylic for years — long before this project began. Photography came later, almost as a hobby, until I discovered what happens when you photograph an acrylic work as a landscape: the camera reveals an effect the eye alone doesn't catch, another life the acrylic takes on once it's seen through a lens.</p>
         <p>That discovery shaped everything that followed. I found myself drawn to the glossy sheen of printed posters — the way ink sits on paper, catching light — and to the meticulous precision of Japanese printmaking, where every line and texture is considered down to the smallest detail. Both pushed me toward monotype.</p>
-        <p>The process is decalcomania, a form of monotype developed by the Surrealists in the 1930s: acrylic is applied between two surfaces — paper, sometimes cardboard, always varying — which are then pressed together and pulled apart. The texture of the surface itself becomes part of the image: its grain, its weight, its resistance all shape how the paint cracks, ridges, and pulls apart. What's left behind is never fully controlled. Acrylic has body — a viscous consistency — and it's this that allows it to hold texture as the surfaces pull apart. And it's the photograph that lets it truly come alive.</p>
-        <p>It's this in-between moment, where paint stops being paint and starts resembling tissue, capillary, or mineral formation, that I'm after. Self-taught, I've spent the past few years developing this process, photographing each result in extreme close-up until the material reveals a structure entirely its own.</p>
-        <p>Each piece begins in the randomness of thick paint and two surfaces — and becomes something impossible to stop looking at.</p>
+        <p>The process is decalcomania, a form of monotype developed by the Surrealists in the 1930s: acrylic is applied between two surfaces — paper, sometimes cardboard, always varying — which are then pressed together and pulled apart. What's left behind is never fully controlled. Acrylic has body. I don't mix or alter it; I leave it whole, as it is, so it stays true to its nature as a material. It is thick and plastic, and it holds its shape as the surfaces part. In the light of the photograph it becomes alive.</p>
+        <p>It's this in-between moment, where the acrylic stops being acrylic and starts resembling tissue, capillary, or roots, that I'm after. Self-taught, I've spent the past few years developing this process, photographing each result as part of a surreal landscape until the material reveals a structure entirely its own.</p>
+        <p>Each piece begins in the randomness of thick acrylic and two surfaces — and becomes something impossible to stop looking at.</p>
       </div>
       <div class="about-photo">
         <img src="images/site-about.jpg">
@@ -405,10 +403,10 @@
   <div class="view" id="view-contact">
     <div class="contact-page">
       <h1>Inquiries</h1>
-      <p>For purchases, commissions, or questions about any piece — reach out directly.</p>
+      <p>For purchases, licensing, or projects — reach out directly.</p>
       <div class="contact-links">
         <a class="contact-link" href="mailto:hello@annabanana.art">hello@annabanana.art</a>
-        <a class="contact-link" href="https://wa.me/972545750361" target="_blank">Message on WhatsApp</a>
+        <a class="contact-link" href="https://www.instagram.com/annabanana.mono/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
   </div>
@@ -425,12 +423,8 @@
       <div class="footer-col">
         <h4>Inquiries</h4>
         <a href="mailto:hello@annabanana.art">hello@annabanana.art</a>
-        <a href="https://wa.me/972545750361" target="_blank">+972-54-5750361</a>
+        <a href="https://www.instagram.com/annabanana.mono/" target="_blank" rel="noopener">Instagram</a>
         <div class="footer-note">Minimum size: 100 × 70 cm; larger formats follow the same proportions.</div>
-      </div>
-      <div class="footer-col">
-        <h4>Socials</h4>
-        <a href="https://wa.me/972545750361" target="_blank">WhatsApp</a>
       </div>
     </div>
   </div>
@@ -461,8 +455,13 @@ function nonStandardDimsHTML(w, cssClass){
   return dims === STANDARD_DIMS ? '' : `<div class="${cssClass}">${dims}</div>`;
 }
 
-function soldTagHTML(a){
-  return a.sold ? `<div class="sold-tag">Sold</div>` : '';
+function soldClass(a){
+  return a.sold ? ' is-sold' : '';
+}
+
+function actionHTML(a){
+  return a.sold ? `<div class="sold-label">Sold</div>`
+                : `<div class="inquire-link" onclick="inquire('${a.mono}')">Inquire</div>`;
 }
 
 function isPortrait(a){
@@ -475,11 +474,11 @@ function isPortrait(a){
 function cardHTML(a){
   const portraitClass = isPortrait(a) ? ' portrait' : '';
   return `<div class="card">
-    <div class="thumb${portraitClass}" onclick="toggleExpandZoom(this)">${soldTagHTML(a)}<img src="${a.image}"></div>
+    <div class="thumb${portraitClass}${soldClass(a)}" onclick="toggleExpandZoom(this)"><img src="${a.image}"></div>
     <div class="cap">
       <div class="title">${a.mono}</div>
       ${nonStandardDimsHTML(a, 'sub')}
-      <div class="inquire-link" onclick="inquire('${a.mono}')">Purchase inquiry</div>
+      ${actionHTML(a)}
     </div>
   </div>`;
 }
@@ -487,11 +486,11 @@ function cardHTML(a){
 function workRowHTML(a){
   const portraitClass = isPortrait(a) ? ' portrait' : '';
   return `<div class="work-single">
-    <div class="work-image${portraitClass}" onclick="toggleExpandZoom(this)">${soldTagHTML(a)}<img src="${a.image}"></div>
+    <div class="work-image${portraitClass}${soldClass(a)}" onclick="toggleExpandZoom(this)"><img src="${a.image}"></div>
     <div class="work-label">
       <div class="title">${a.mono}</div>
       ${nonStandardDimsHTML(a, 'dims')}
-      <div class="inquire-link" onclick="inquire('${a.mono}')">Purchase inquiry</div>
+      ${actionHTML(a)}
     </div>
   </div>`;
 }
@@ -501,17 +500,17 @@ function pairHTML(a, b, showSoldTogether){
   const portraitB = isPortrait(b) ? ' portrait' : '';
   return `<div class="work-single work-pair">
     <div class="pair-grid">
-      <div class="work-image half${portraitA}" onclick="toggleExpandZoom(this)">${soldTagHTML(a)}<img src="${a.image}"></div>
+      <div class="work-image half${portraitA}${soldClass(a)}" onclick="toggleExpandZoom(this)"><img src="${a.image}"></div>
       <div class="work-label half first">
         <div class="title">${a.mono}</div>
         ${nonStandardDimsHTML(a, 'dims')}
-        <div class="inquire-link" onclick="inquire('${a.mono}')">Purchase inquiry</div>
+        ${actionHTML(a)}
       </div>
-      <div class="work-image half${portraitB}" onclick="toggleExpandZoom(this)">${soldTagHTML(b)}<img src="${b.image}"></div>
+      <div class="work-image half${portraitB}${soldClass(b)}" onclick="toggleExpandZoom(this)"><img src="${b.image}"></div>
       <div class="work-label half">
         <div class="title">${b.mono}</div>
         ${nonStandardDimsHTML(b, 'dims')}
-        <div class="inquire-link" onclick="inquire('${b.mono}')">Purchase inquiry</div>
+        ${actionHTML(b)}
       </div>
     </div>
     ${showSoldTogether ? '<div class="sold-together-note">&mdash; Sold together &mdash;</div>' : ''}
@@ -570,7 +569,7 @@ function collectionBlockHTML(collection){
 async function loadWorks(){
   const res = await fetch('data/works.json');
   const data = await res.json();
-  ARTWORKS = data.works;
+  ARTWORKS = data.works.filter(w => !w.licensed);   // exclusive license: hidden from the site
 
   // group by collection_code
   const map = {};
@@ -578,7 +577,8 @@ async function loadWorks(){
     if(!map[w.collection_code]) map[w.collection_code] = { code: w.collection_code, date: w.date, medium: w.medium, works: [] };
     map[w.collection_code].works.push(w);
   });
-  COLLECTIONS = Object.values(map).sort((a,b) => b.date.localeCompare(a.date));
+  // newest date first; two sessions on the same day: the later session (.02) before the earlier (.01)
+  COLLECTIONS = Object.values(map).sort((a,b) => b.date.localeCompare(a.date) || b.code.localeCompare(a.code));
   COLLECTIONS.forEach(c => c.works.sort((x,y) => x.mono.localeCompare(y.mono)));
 
   const latest = COLLECTIONS[0];
@@ -637,9 +637,13 @@ function lbFit(){
   const r = Math.min(vw / nw, vh / nh);
   LB.w = Math.round(nw * r); LB.h = Math.round(nh * r);
   stage.style.width = LB.w + 'px'; stage.style.height = LB.h + 'px';
+  lbApply();
 }
 function lbApply(){
-  document.getElementById('lightbox-img').style.transform = `translate(${LB.tx}px, ${LB.ty}px) scale(${LB.scale})`;
+  // the image is laid out at its zoomed size, so the browser redraws it from the full-resolution file
+  const img = document.getElementById('lightbox-img');
+  if(LB.w){ img.style.width = (LB.w * LB.scale) + 'px'; img.style.height = (LB.h * LB.scale) + 'px'; }
+  img.style.transform = `translate(${LB.tx}px, ${LB.ty}px)`;
 }
 function lbClamp(){
   LB.tx = Math.min(0, Math.max(LB.w - LB.w*LB.scale, LB.tx));
@@ -732,24 +736,27 @@ function toggleExpandZoom(el){
   if(!isActive){
     el.classList.add('zoom-active');
     if(outer) outer.classList.add('expanded');
+    // 2x zoom drawn at real size (sharp), panned with the cursor
+    img.style.width = '200%'; img.style.height = '200%'; img.style.transform = 'none';
+    img.style.left = '-50%'; img.style.top = '-50%';
     el._zoomMove = function(e){
       const rect = el.getBoundingClientRect();
-      const px = ((e.clientX - rect.left) / rect.width) * 100;
-      const py = ((e.clientY - rect.top) / rect.height) * 100;
-      img.style.transformOrigin = px + '% ' + py + '%';
-      img.style.transform = 'scale(2)';
+      const rx = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      const ry = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+      img.style.left = (-rx * rect.width) + 'px';
+      img.style.top = (-ry * rect.height) + 'px';
     };
     el.addEventListener('mousemove', el._zoomMove);
   } else {
     el.classList.remove('zoom-active');
     if(outer) outer.classList.remove('expanded');
-    img.style.transform = 'scale(1)';
+    ['width','height','left','top','transform'].forEach(p => img.style[p] = '');
     if(el._zoomMove){ el.removeEventListener('mousemove', el._zoomMove); el._zoomMove = null; }
   }
 }
 
 function inquire(mono){
-  window.open('https://wa.me/972545750361?text=' + encodeURIComponent("Hi! I'm interested in " + mono), '_blank');
+  window.location.href = 'mailto:hello@annabanana.art?subject=' + encodeURIComponent('Inquiry: ' + mono);
 }
 
 // ---------- ZOOM IN/OUT + PAN (reusable) ----------
@@ -768,8 +775,9 @@ function attachZoom(containerEl, imgEl, opts){
   }
 
   function apply(){
-    imgEl.style.transformOrigin = '0 0';
-    imgEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    imgEl.style.width = (scale * 100) + '%';
+    imgEl.style.height = (scale * 100) + '%';
+    imgEl.style.transform = `translate(${tx}px, ${ty}px)`;
     if(opts.onZoomChange) opts.onZoomChange(scale);
   }
 

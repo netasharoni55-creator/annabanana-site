@@ -48,4 +48,25 @@ collections:
                 name: "sold"
                 widget: "boolean"
                 default: false
-                hint: "Check this once the piece has sold — a subtle 'Sold' tag will appear on the site."
+                hint: "Check this once the piece has sold. The work stays on the site, lighter, with 'Sold' under its title instead of 'Inquire'."
+              - label: "Exclusive license (hidden from site)"
+                name: "licensed"
+                widget: "boolean"
+                default: false
+                required: false
+                hint: "Check only for an EXCLUSIVE license. The work is hidden from the site until you uncheck it. Non-exclusive licenses stay visible."
+              - label: "Featured (shown large, on its own row)"
+                name: "featured"
+                widget: "boolean"
+                default: false
+                required: false
+              - label: "Solo (own row, normal size)"
+                name: "solo"
+                widget: "boolean"
+                default: false
+                required: false
+              - label: "Sold together with (MoNo ID)"
+                name: "set_with"
+                widget: "list"
+                field: {label: "MoNo ID", name: "mono", widget: "string"}
+                required: false
