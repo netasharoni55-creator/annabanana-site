@@ -36,7 +36,7 @@ collections:
                 name: "dimensions"
                 widget: "string"
                 required: false
-                hint: "Leave blank to show the default: From 100 × 70 cm"
+                hint: "Landscape, 3:2 or Portrait, 2:3 (blank = Landscape, 3:2)"
               - label: "Medium"
                 name: "medium"
                 widget: "string"
