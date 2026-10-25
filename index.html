@@ -53,19 +53,38 @@
   .view.active{display:block; animation:fadeIn .5s ease;}
   @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative; width:100%;
-    display:flex; justify-content:center;
-    padding:16px 24px 8px; background:var(--bg);
-  }
-  .hero-frame{ display:flex; flex-direction:column; align-items:flex-start; max-width:100%; }
-  .hero img{ display:block; width:auto; max-width:100%; height:auto; max-height:calc(100vh - 190px); object-fit:contain; }
+  /* ---------- HERO (full column width, no crop, click to zoom) ---------- */
+  .hero{ max-width:1280px; margin:0 auto; padding:48px 80px 0; background:var(--bg); }
+  .hero-image{ position:relative; width:100%; aspect-ratio:1.5; overflow:hidden; background:var(--bg); cursor:zoom-in; }
+  .hero-image img{ width:100%; height:100%; object-fit:contain; }
   .hero-cap{ margin-top:16px; }
   .hero-cap .title{ font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; color:var(--navy); }
-  .hero-cap .sub{ font-family:'Inter',sans-serif; font-size:12px; font-weight:400; color:var(--navy-50); margin-top:4px; }
-  .hero-links{ display:flex; gap:28px; }
-  .hero-links .inquire-link{ cursor:pointer; }
+  .hero-cap .sub{ font-family:'Inter',sans-serif; font-size:12px; font-weight:400; color:var(--navy-50); margin-top:4px; line-height:1.4; }
+
+  /* ---------- THE WORK (label column + text column) ---------- */
+  .home-block{ max-width:1280px; margin:0 auto; padding:120px 80px 0; }
+  .split{ display:grid; grid-template-columns:1fr 3fr; gap:40px; align-items:start; }
+  .label{ font-family:'Josefin Sans',sans-serif; font-size:12px; font-weight:400; letter-spacing:4px; text-transform:uppercase; color:var(--navy); padding-top:6px; }
+  .work-lead{ font-family:'Inter',sans-serif; font-size:24px; font-weight:400; line-height:1.45; max-width:30ch; }
+  .work-process{ font-family:'Inter',sans-serif; font-size:15px; font-weight:400; line-height:1.7; max-width:56ch; margin-top:24px; }
+  .text-link{ display:inline-block; margin-top:24px; font-family:'Josefin Sans',sans-serif; font-size:12px; font-weight:400; letter-spacing:4px; text-transform:uppercase; color:var(--navy); cursor:pointer; border-bottom:1px solid var(--navy-15); padding-bottom:4px; }
+  .text-link:hover{ border-bottom-color:var(--navy); }
+
+  /* ---------- SELECTED WORKS (home) ---------- */
+  .home-head{ border-bottom:1px solid var(--navy-15); padding-bottom:16px; margin-bottom:32px; }
+  .home-works .grid{ row-gap:56px; }
+  .grid-link{ display:flex; align-items:center; justify-content:flex-start; }
+
+  /* ---------- AVAILABILITY (home closing) ---------- */
+  .closing{ max-width:1280px; margin:120px auto 0; padding:0 80px; }
+  .closing-inner{ border-top:1px solid var(--navy); padding-top:48px; display:grid; grid-template-columns:1fr 3fr; gap:40px; }
+  .closing-mail{ display:block; margin-top:16px; font-family:'Inter',sans-serif; font-size:15px; color:var(--navy); }
+  .closing-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+  .closing-cols p{ font-family:'Inter',sans-serif; font-size:15px; line-height:1.7; margin-top:16px; }
+  .closing-footer{ margin-top:64px; border-top:1px solid var(--navy-15); padding:20px 0 30px;
+    font-family:'Josefin Sans',sans-serif; font-size:12px; font-weight:400; letter-spacing:2px; color:var(--navy-50); }
+  .closing-footer a{ color:inherit; }
+  body[data-route="home"] footer{ display:none; }
 
   /* ---------- SECTIONS ---------- */
   section{ padding:120px 80px; max-width:1280px; margin:0 auto;}
@@ -190,17 +209,17 @@
   /* ---------- MOBILE FULLSCREEN LIGHTBOX ---------- */
   .lightbox{
     display:none; position:fixed; inset:0; z-index:2000;
-    background:#0b0b0b; align-items:center; justify-content:center;
+    background:var(--bg); align-items:center; justify-content:center;
     touch-action:none; overscroll-behavior:contain;
   }
   .lightbox.open{ display:flex; }
   .lightbox-stage{ position:relative; overflow:hidden; }
   .lightbox-stage img{ width:100%; height:100%; max-width:none; display:block; transform-origin:0 0; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
-  .lightbox-hint{ position:absolute; left:0; right:0; bottom:28px; text-align:center; color:rgba(255,255,255,.55); font-family:'Josefin Sans',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; pointer-events:none; }
+  .lightbox-hint{ position:absolute; left:0; right:0; bottom:28px; text-align:center; color:var(--navy-50); font-family:'Josefin Sans',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; pointer-events:none; }
   .lightbox-close{
     position:absolute; top:20px; right:20px; z-index:2001;
     width:40px; height:40px; border-radius:50%; border:none;
-    background:rgba(255,255,255,0.12); color:#fff; font-size:26px; line-height:1;
+    background:var(--navy-15); color:var(--navy); font-size:26px; line-height:1;
     display:flex; align-items:center; justify-content:center; cursor:pointer;
   }
   .thumb img, .work-image img{ transition:transform .15s ease; }
@@ -241,6 +260,9 @@
     .gallery-head, .gallery-collections, .about-page, .contact-page{padding-left:24px; padding-right:24px;}
     .grid{grid-template-columns:1fr;}
     .loupe-inner, .about-page-grid{grid-template-columns:1fr;}
+    .hero{padding:32px 24px 0;}
+    .home-block{padding:80px 24px 0;}
+    .closing{padding:0 24px;}
   }
 
   /* ---------- MOBILE (phones) ---------- */
@@ -272,10 +294,26 @@
 
     /* hero */
     .hero{ padding:0 0 8px; }
-    .hero-frame{ width:100%; }
-    .hero img{ width:100%; height:auto; max-height:none; aspect-ratio:1.5; }
-    .hero-cap{ padding:0 20px; }
-    .hero-cap .title{ font-size:13px; }
+    .hero-cap{ padding:0 20px; margin-top:12px; }
+    .hero-cap .title{ font-size:12px; }
+    .hero-cap .sub, .card .cap .sub, .work-single .work-label .dims{ font-size:11px; }
+    .inquire-link{ font-size:10px; }
+
+    /* home blocks: less text, smaller */
+    .home-block{ padding:56px 20px 0; }
+    .split, .closing-inner{ grid-template-columns:1fr; gap:14px; }
+    .label{ font-size:11px; letter-spacing:3px; padding-top:0; }
+    .work-lead{ font-size:15px; line-height:1.6; max-width:none; }
+    .work-process{ display:none; }
+    .text-link{ font-size:11px; letter-spacing:3px; margin-top:16px; }
+    .home-head{ margin-bottom:24px; }
+    .home-works .grid{ row-gap:40px; }
+    .closing{ margin-top:72px; padding:0 20px; }
+    .closing-inner{ padding-top:32px; }
+    .closing-mail{ font-size:14px; margin-top:8px; }
+    .closing-cols{ grid-template-columns:1fr; gap:24px; margin-top:16px; }
+    .closing-cols p{ font-size:14px; margin-top:8px; }
+    .closing-footer{ margin-top:40px; font-size:10px; letter-spacing:1.5px; line-height:1.8; }
 
     /* typography scales down */
     .section-head h2{ font-size:15px; letter-spacing:2.5px; }
@@ -306,7 +344,6 @@
 <header>
   <div class="logo" onclick="navigate('home')">ANNA BANANA</div>
   <nav id="site-nav">
-    <a data-route="home" onclick="navigate('home')">Home</a>
     <a data-route="gallery" onclick="navigate('gallery')">Gallery</a>
     <a data-route="about" onclick="navigate('about')">About</a>
     <a data-route="contact" onclick="navigate('contact')">Inquiries</a>
@@ -321,55 +358,45 @@
   <!-- ================= HOME ================= -->
   <div class="view" id="view-home">
     <div class="hero">
-      <div class="hero-frame">
-        <img id="hero-img" src="">
-        <div class="hero-cap">
-          <div class="title" id="hero-label"></div>
-          <div class="sub" id="hero-dims"></div>
-          <div class="hero-links">
-            <div class="inquire-link" id="hero-inquire">Inquire</div>
-            <div class="inquire-link" onclick="scrollToId('home-loupe')">Explore the Texture</div>
-          </div>
+      <div class="hero-image" onclick="toggleExpandZoom(this)"><img id="hero-img" src="" alt=""></div>
+      <div class="hero-cap">
+        <div class="title" id="hero-label"></div>
+        <div class="sub" id="hero-medium"></div>
+        <div class="sub" id="hero-dims"></div>
+        <div class="inquire-link" id="hero-inquire">Inquire</div>
+      </div>
+    </div>
+
+    <div class="home-block">
+      <div class="split">
+        <div class="label">The Work</div>
+        <div>
+          <p class="work-lead">Creating at the intersection of acrylic, print transfer, and photography, my practice examines texture as landscape.</p>
+          <p class="work-process">Acrylic is pressed between two surfaces and pulled apart. It is thick and plastic, and it holds its shape as the surfaces part. The camera records detail the eye alone does not catch.</p>
+          <a class="text-link" onclick="navigate('about')">About the Process</a>
         </div>
       </div>
     </div>
 
-    <section>
-      <div class="about-preview">
-        <div class="eyebrow">THE ARTIST</div>
-        <h2>ANNA BANANA</h2>
-        <p>Creating at the intersection of acrylic, print transfer, and photography, my practice examines texture as landscape.</p>
-        <div class="cta-row" style="margin-top:24px;">
-          <a class="btn" onclick="navigate('about')">Read More</a>
-        </div>
-      </div>
-    </section>
-
-    <div class="loupe-section" id="home-loupe">
-      <div class="loupe-inner">
-        <div class="loupe-demo-col">
-          <div class="loupe-demo" id="loupe-demo">
-            <img id="loupe-demo-img" src="">
-            <div class="loupe-mag-label" id="loupe-mag-label">Click to zoom in</div>
-          </div>
-        </div>
-        <div class="loupe-text">
-          <div class="eyebrow">THE LOUPE</div>
-          <p><span class="loupe-lead">Click the work and move your cursor across it to reveal its detail.</span> Each piece embodies random organic textures and forms. Acrylic has body. It is thick and plastic, and it holds its shape as the surfaces part. In the light of the photograph it becomes alive. The passage between mediums — acrylic, monotype, and photograph — illustrates, emphasizes, and reveals details.</p>
-        </div>
-      </div>
-    </div>
-
-    <section>
-      <div class="section-head">
-        <h2>SELECTED WORKS</h2>
-        <div class="meta">EACH WORK CAN BE PRODUCED IN ANY SIZE WITHIN ITS ORIGINAL 3:2 PROPORTION</div>
-      </div>
+    <div class="home-block home-works">
+      <div class="home-head"><div class="label">Selected Works</div></div>
       <div class="grid" id="home-grid"></div>
-      <div class="cta-row">
-        <a class="btn" onclick="navigate('gallery')">View Full Gallery</a>
+    </div>
+
+    <div class="closing">
+      <div class="closing-inner">
+        <div>
+          <div class="label">Availability</div>
+          <a class="closing-mail" href="mailto:hello@annabanana.art">hello@annabanana.art</a>
+        </div>
+        <div class="closing-cols">
+          <div><div class="label">Originals</div><p>One original per work, produced at the scale the space requires, in its original 3:2 proportion.</p></div>
+          <div><div class="label">Licensing</div><p>Non-exclusive licensing for wallcoverings, textiles, rugs and printed products. Exclusive rights on request.</p></div>
+          <div><div class="label">Projects</div><p>Licensing for hotels and interiors, printed locally to the scale of each space. Quoted per project.</p></div>
+        </div>
       </div>
-    </section>
+      <div class="closing-footer">ANNA BANANA &middot; Acrylic, monotype, photograph &middot; <a href="https://www.instagram.com/annabanana.mono/" target="_blank" rel="noopener">Instagram</a> &middot; &copy; 2026 Anna Banana</div>
+    </div>
   </div>
 
   <!-- ================= GALLERY ================= -->
@@ -453,8 +480,8 @@ function displayDims(w){
 }
 
 function nonStandardDimsHTML(w, cssClass){
-  const dims = displayDims(w);
-  return dims === STANDARD_DIMS ? '' : `<div class="${cssClass}">${dims}</div>`;
+  // one caption everywhere: MoNo / medium / proportion
+  return `<div class="${cssClass}">${w.medium || 'Acrylic, monotype, photograph'}</div><div class="${cssClass}">${displayDims(w)}</div>`;
 }
 
 function soldClass(a){
@@ -592,25 +619,24 @@ async function loadWorks(){
   if(heroWork){
     document.getElementById('hero-img').src = heroWork.image;
     document.getElementById('hero-label').textContent = heroWork.mono;
-    const heroDims = displayDims(heroWork);
-    const heroDimsEl = document.getElementById('hero-dims');
-    if(heroDims === STANDARD_DIMS){ heroDimsEl.style.display='none'; } else { heroDimsEl.textContent = heroDims; }
+    document.getElementById('hero-medium').textContent = heroWork.medium || 'Acrylic, monotype, photograph';
+    document.getElementById('hero-dims').textContent = displayDims(heroWork);
     const heroInq = document.getElementById('hero-inquire');
     if(heroWork.sold){ heroInq.textContent='Sold'; heroInq.style.cursor='default'; }
     else { heroInq.onclick = () => inquire(heroWork.mono); }
   }
-  const loupeWork = ARTWORKS.find(w => w.mono === 'MoNo.08.28.2026-01') || (latest && latest.works[0]);
-  if(loupeWork){
-    document.getElementById('loupe-demo-img').src = loupeWork.image;
-    document.getElementById('loupe-demo').classList.toggle('portrait', isPortrait(loupeWork));
-  }
-  document.getElementById('home-grid').innerHTML = latest ? latest.works.slice(0,3).map(cardHTML).join('') : '';
+  // Selected works: one per sheet from 10.25 (row 1 landscape, row 2 portrait + gallery link)
+  const HOME_SELECTION = ['MoNo.10.25.2026-03','MoNo.10.25.2026-06','MoNo.10.25.2026-08','MoNo.10.25.2026-05','MoNo.10.25.2026-07'];
+  const picks = HOME_SELECTION.map(m => ARTWORKS.find(w => w.mono === m)).filter(Boolean);
+  document.getElementById('home-grid').innerHTML = picks.map(cardHTML).join('')
+    + `<div class="grid-link"><a class="text-link" onclick="navigate('gallery')">View Full Gallery</a></div>`;
   document.getElementById('gallery-collections').innerHTML = COLLECTIONS.map(collectionBlockHTML).join('');
 }
 
 function navigate(route){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+route).classList.add('active');
+  document.body.dataset.route = route;
   document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
   const navLink = document.querySelector(`nav a[data-route="${route}"]`);
   if(navLink) navLink.classList.add('active');
@@ -885,10 +911,7 @@ function attachZoom(containerEl, imgEl, opts){
   };
 }
 
-const homeZoom = attachZoom(document.getElementById('loupe-demo'), document.getElementById('loupe-demo-img'), {
-  onZoomChange:(s)=>{ document.getElementById('loupe-mag-label').textContent = `MAGNIFICATION: ${s.toFixed(1)}X — scroll or pinch to zoom`; },
-  onActiveChange:(active)=>{ document.getElementById('loupe-mag-label').textContent = active ? 'MAGNIFICATION: 1.0X — scroll or pinch to zoom (click to exit)' : 'Click to zoom in'; }
-});
+
 
 
 
