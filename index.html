@@ -56,23 +56,16 @@
   /* ---------- HERO ---------- */
   .hero{
     position:relative; width:100%;
-    display:flex; flex-direction:column; align-items:center;
-    padding:24px 0 8px; background:var(--bg);
+    display:flex; justify-content:center;
+    padding:16px 24px 8px; background:var(--bg);
   }
-  .hero img{ width:auto; max-width:100%; height:auto; max-height:calc(100vh - 230px); object-fit:contain; }
-  .hero-label{
-    position:static; margin-top:20px;
-    background:var(--bg); color:var(--navy); padding:12px 20px;
-    border:1px solid var(--navy);
-    font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px;
-  }
-  .hero-cta{
-    position:static; margin-top:14px;
-    background:var(--bg); border:1px solid var(--navy-15); border-radius:30px;
-    padding:12px 24px; font-family:'Josefin Sans',sans-serif; font-size:11px; font-weight:600;
-    letter-spacing:2px; text-transform:uppercase;
-    cursor:pointer; display:flex; align-items:center; gap:8px;
-  }
+  .hero-frame{ display:flex; flex-direction:column; align-items:flex-start; max-width:100%; }
+  .hero img{ display:block; width:auto; max-width:100%; height:auto; max-height:calc(100vh - 190px); object-fit:contain; }
+  .hero-cap{ margin-top:16px; }
+  .hero-cap .title{ font-family:'Josefin Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; color:var(--navy); }
+  .hero-cap .sub{ font-family:'Inter',sans-serif; font-size:12px; font-weight:400; color:var(--navy-50); margin-top:4px; }
+  .hero-links{ display:flex; gap:28px; }
+  .hero-links .inquire-link{ cursor:pointer; }
 
   /* ---------- SECTIONS ---------- */
   section{ padding:120px 80px; max-width:1280px; margin:0 auto;}
@@ -278,10 +271,11 @@
     .contact-page{ padding:56px 20px; }
 
     /* hero */
-    .hero{ padding-top:0; }
+    .hero{ padding:0 0 8px; }
+    .hero-frame{ width:100%; }
     .hero img{ width:100%; height:auto; max-height:none; aspect-ratio:1.5; }
-    .hero-label{ padding:10px 14px; font-size:12px; margin:20px 0 0; }
-    .hero-cta{ font-size:10px; padding:10px 18px; margin-top:14px; text-align:center; }
+    .hero-cap{ padding:0 20px; }
+    .hero-cap .title{ font-size:13px; }
 
     /* typography scales down */
     .section-head h2{ font-size:15px; letter-spacing:2.5px; }
@@ -327,9 +321,17 @@
   <!-- ================= HOME ================= -->
   <div class="view" id="view-home">
     <div class="hero">
-      <img id="hero-img" src="">
-      <div class="hero-label" id="hero-label"></div>
-      <div class="hero-cta" onclick="scrollToId('home-loupe')">Explore the Texture</div>
+      <div class="hero-frame">
+        <img id="hero-img" src="">
+        <div class="hero-cap">
+          <div class="title" id="hero-label"></div>
+          <div class="sub" id="hero-dims"></div>
+          <div class="hero-links">
+            <div class="inquire-link" id="hero-inquire">Inquire</div>
+            <div class="inquire-link" onclick="scrollToId('home-loupe')">Explore the Texture</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section>
@@ -577,15 +579,25 @@ async function loadWorks(){
     if(!map[w.collection_code]) map[w.collection_code] = { code: w.collection_code, date: w.date, medium: w.medium, works: [] };
     map[w.collection_code].works.push(w);
   });
-  // newest date first; two sessions on the same day: the later session (.02) before the earlier (.01)
-  COLLECTIONS = Object.values(map).sort((a,b) => b.date.localeCompare(a.date) || b.code.localeCompare(a.code));
+  // newest date first
+  // same-day sessions: later session first, except where a decision says otherwise
+  const SESSION_FIRST = ['AB.2026.10.17.01'];
+  COLLECTIONS = Object.values(map).sort((a,b) => b.date.localeCompare(a.date)
+    || (SESSION_FIRST.includes(b.code) - SESSION_FIRST.includes(a.code))
+    || b.code.localeCompare(a.code));
   COLLECTIONS.forEach(c => c.works.sort((x,y) => x.mono.localeCompare(y.mono)));
 
   const latest = COLLECTIONS[0];
-  const heroWork = ARTWORKS.find(w => w.mono === 'MoNo.09.25.2026.02-16') || (latest && latest.works[0]);
+  const heroWork = ARTWORKS.find(w => w.mono === 'MoNo.10.25.2026-02') || (latest && latest.works[0]);
   if(heroWork){
     document.getElementById('hero-img').src = heroWork.image;
     document.getElementById('hero-label').textContent = heroWork.mono;
+    const heroDims = displayDims(heroWork);
+    const heroDimsEl = document.getElementById('hero-dims');
+    if(heroDims === STANDARD_DIMS){ heroDimsEl.style.display='none'; } else { heroDimsEl.textContent = heroDims; }
+    const heroInq = document.getElementById('hero-inquire');
+    if(heroWork.sold){ heroInq.textContent='Sold'; heroInq.style.cursor='default'; }
+    else { heroInq.onclick = () => inquire(heroWork.mono); }
   }
   const loupeWork = ARTWORKS.find(w => w.mono === 'MoNo.08.28.2026-01') || (latest && latest.works[0]);
   if(loupeWork){
