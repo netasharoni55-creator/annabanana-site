@@ -189,6 +189,9 @@
   .collection-block .section-head .meta{ font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; }
   .work-single{ margin-bottom:160px; }
   .work-single:last-child{ margin-bottom:0; }
+  .work-single.layout-full{ max-width:none; }
+  .work-single.layout-center{ max-width:none; width:min(66.666%, calc(85vh * 2 / 3)); }
+  .work-single.layout-center .work-image.portrait{ max-width:none; }
   .work-single .work-image{ position:relative; width:100%; aspect-ratio:1.5; overflow:hidden; background:var(--bg); cursor:pointer; }
   .work-single .work-image.portrait{ aspect-ratio:2/3; max-width:640px; margin:0 auto; }
   .work-single .work-image img{ width:100%; height:100%; object-fit:contain; transition:transform .5s ease; }
@@ -200,6 +203,7 @@
   .pair-grid{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; grid-auto-flow:column; column-gap:8px; align-items:start; }
   .pair-grid .work-image.half{ margin-top:0; align-self:end; }  /* mixed portrait+landscape: bottoms line up, names sit right under */
   .sold-together-note{ text-align:center; font-family:'Josefin Sans',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--navy-50); margin-top:20px; }
+  @media (max-width:680px){ .work-single.layout-center{ width:auto; } }
   @media (max-width:680px){ .pair-grid{ grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row; } .pair-grid .work-label.first{ margin-bottom:56px; } }
 
   /* ---------- ARTWORK DETAIL (in-place expand+zoom, no lightbox) ---------- */
@@ -512,9 +516,9 @@ function cardHTML(a){
   </div>`;
 }
 
-function workRowHTML(a){
+function workRowHTML(a, layoutClass){
   const portraitClass = isPortrait(a) ? ' portrait' : '';
-  return `<div class="work-single">
+  return `<div class="work-single${layoutClass ? ' ' + layoutClass : ''}">
     <div class="work-image${portraitClass}${soldClass(a)}" onclick="toggleExpandZoom(this)"><img src="${a.image}"></div>
     <div class="work-label">
       <div class="title">${a.mono}</div>
@@ -551,6 +555,18 @@ function collectionBlockHTML(collection){
   const parts = [];
   const works = collection.works;
 
+  // Manual layout: when a collection's works carry "row", rows follow that order exactly.
+  // Two works in a row = pair; one work = alone ("full" = full content width, "center" = large, centred).
+  if(works.some(w => w.row != null)){
+    const rows = {};
+    works.forEach(w => { (rows[w.row] = rows[w.row] || []).push(w); });
+    const html = Object.keys(rows).map(Number).sort((x,y) => x - y).map(r => {
+      const ws = rows[r];
+      return ws.length === 2 ? pairHTML(ws[0], ws[1], false) : workRowHTML(ws[0], 'layout-' + (ws[0].layout || 'center'));
+    });
+    return collectionWrapHTML(collection, html);
+  }
+
   // Pass 1: sold-together sets always pair with their real partner, and featured works stand alone.
   works.forEach(a => {
     if(rendered.has(a.mono)) return;
@@ -569,34 +585,37 @@ function collectionBlockHTML(collection){
     }
   });
 
-  // Pass 2: everything else (not a set, not featured) fills a two-per-row grid, in order.
+  // Pass 2: everything else pairs only with a work of the same orientation (never portrait next to landscape).
+  // A work with no same-orientation partner left in the collection stands alone.
   const remaining = works.filter(w => !rendered.has(w.mono));
-  for(let i = 0; i < remaining.length; i += 2){
-    const a = remaining[i];
-    const b = remaining[i+1];
+  remaining.forEach((a, i) => {
+    if(rendered.has(a.mono)) return;
+    const b = remaining.slice(i + 1).find(w => !rendered.has(w.mono) && isPortrait(w) === isPortrait(a));
     const idx = works.indexOf(a);
     if(b){
       parts.push({sort: idx, html: pairHTML(a, b, false)});
-      rendered.add(a.mono);
       rendered.add(b.mono);
     } else {
       parts.push({sort: idx, html: workRowHTML(a)});
-      rendered.add(a.mono);
     }
-  }
+    rendered.add(a.mono);
+  });
 
   parts.sort((x,y) => x.sort - y.sort);
-  const partsHTML = parts.map(p => p.html);
+  return collectionWrapHTML(collection, parts.map(p => p.html));
+}
+
+function collectionWrapHTML(collection, partsHTML){
   return `<div class="collection-block">
     <div class="section-head">
-      <div class="meta">CATALOGUE ${collection.code} / MIXED-MEDIA &middot; ${collection.medium}</div>
+      <div class="meta">CATALOGUE ${collection.code} &middot; ${collection.medium}</div>
     </div>
     ${partsHTML.join('')}
   </div>`;
 }
 
 async function loadWorks(){
-  const res = await fetch('data/works.json');
+  const res = await fetch('data/works.json', {cache: 'no-cache'});
   const data = await res.json();
   ARTWORKS = data.works.filter(w => !w.licensed);   // exclusive license: hidden from the site
 
@@ -615,7 +634,7 @@ async function loadWorks(){
   COLLECTIONS.forEach(c => c.works.sort((x,y) => x.mono.localeCompare(y.mono)));
 
   const latest = COLLECTIONS[0];
-  const heroWork = ARTWORKS.find(w => w.mono === 'MoNo.10.25.2026-02') || (latest && latest.works[0]);
+  const heroWork = ARTWORKS.find(w => w.mono === 'MoNo.10.31.2026-07') || (latest && latest.works[0]);
   if(heroWork){
     document.getElementById('hero-img').src = heroWork.image;
     document.getElementById('hero-label').textContent = heroWork.mono;
