@@ -644,9 +644,15 @@ async function loadWorks(){
     if(heroWork.sold){ heroInq.textContent='Sold'; heroInq.style.cursor='default'; }
     else { heroInq.onclick = () => inquire(heroWork.mono); }
   }
-  // Selected works: one per sheet from 10.25 (row 1 landscape, row 2 portrait + gallery link)
-  const HOME_SELECTION = ['MoNo.10.25.2026-03','MoNo.10.25.2026-06','MoNo.10.25.2026-08','MoNo.10.25.2026-05','MoNo.10.25.2026-07'];
-  const picks = HOME_SELECTION.map(m => ARTWORKS.find(w => w.mono === m)).filter(Boolean);
+  // Selected works: always from the newest collection on the site (hero excluded).
+  // Row 1: three landscape works, row 2: two portrait works + gallery link. Never mixed in a row.
+  // If the newest collection has too few of one orientation, the next collections fill in.
+  const pool = [];
+  COLLECTIONS.forEach(c => {
+    const ordered = c.works.some(w => w.row != null) ? [...c.works].sort((x,y) => (x.row - y.row) || x.mono.localeCompare(y.mono)) : c.works;
+    ordered.forEach(w => { if(!heroWork || w.mono !== heroWork.mono) pool.push(w); });
+  });
+  const picks = pool.filter(w => !isPortrait(w)).slice(0, 3).concat(pool.filter(w => isPortrait(w)).slice(0, 2));
   document.getElementById('home-grid').innerHTML = picks.map(cardHTML).join('')
     + `<div class="grid-link"><a class="text-link" onclick="navigate('gallery')">View Full Gallery</a></div>`;
   document.getElementById('gallery-collections').innerHTML = COLLECTIONS.map(collectionBlockHTML).join('');
