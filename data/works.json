@@ -1063,6 +1063,195 @@
       "medium": "Acrylic, monotype, photograph",
       "image": "/images/mono-10-25-2026-08.jpg",
       "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-01",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-01.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-02",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-02.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-03",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-03.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-04",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-04.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-05",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-05.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-06",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-06.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-07",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-07.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.10.31.2026-08",
+      "collection_code": "AB.2026.10.31",
+      "date": "2026-10-31",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-10-31-2026-08.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-01",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-01.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-02",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-02.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-03",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-03.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-04",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-04.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-05",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-05.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-06",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-06.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-07",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-07.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-08",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-08.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-09",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-09.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-10",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-10.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-11",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Landscape, 3:2",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-11.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-12",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-12.jpg",
+      "sold": false
+    },
+    {
+      "mono": "MoNo.11.13.2026-13",
+      "collection_code": "AB.2026.11.13",
+      "date": "2026-11-13",
+      "dimensions": "Portrait, 2:3",
+      "medium": "Acrylic, monotype, photograph",
+      "image": "/images/mono-11-13-2026-13.jpg",
+      "sold": false
     }
   ]
 }
